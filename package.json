@@ -1,0 +1,39 @@
+{
+  "name": "event-management-system-with-ticket-booking",
+  "version": "1.0.0",
+  "description": "Event Management System with Ticket Booking",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "SET ENVI=dev& nodemon server.js",
+    "prod": "SET ENVI=prod& nodemon server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dantecodex/Event-Management-System-with-Ticket-Booking.git"
+  },
+  "keywords": [
+    "event",
+    "management",
+    "system"
+  ],
+  "author": "Anshul Rajput",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dantecodex/Event-Management-System-with-Ticket-Booking/issues"
+  },
+  "homepage": "https://github.com/dantecodex/Event-Management-System-with-Ticket-Booking#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "mongoose": "^8.4.1",
+    "validator": "^13.12.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.3"
+  }
+}
