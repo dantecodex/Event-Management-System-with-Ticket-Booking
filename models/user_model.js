@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcrypt"
 import crypto from "crypto"
+import { type } from "os";
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -40,6 +41,10 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: true,
         select: false
+    },
+    events: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Events'
     },
     passwordResetToken: String,
     passwordResetTokenExpires: Date

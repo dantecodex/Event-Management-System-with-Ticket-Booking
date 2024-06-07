@@ -4,3 +4,7 @@
 body {
     font-family: 'Archivo', sans-serif;
 }
+
+#heading {
+    font-family: 'Cormorant Garamond' !important;
+}

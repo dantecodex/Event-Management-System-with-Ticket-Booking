@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import staticRouter from "./router/stactic_route.js";
 import authRouter from "./router/auth_route.js";
 import globalErrorHandler from "./middleware/globalErrorHandler.js";
+import eventRouter from "./router/event_route.js";
 
 const app = express()
 
@@ -20,6 +21,7 @@ app.set('view engine', 'ejs');
 
 app.use('/', staticRouter)
 app.use('/api/user', authRouter)
+app.use('/api/event', eventRouter)
 
 app.use('*', (req, res) => {
     res.render('page404')

@@ -12,7 +12,7 @@ const eventSchema = new mongoose.Schema({
         minlength: [6, "Event location must be atleast six letters long"]
     },
     date: {
-        type: String,
+        type: Date,
         required: [true, "Event date is a required field"]
     },
     price: {
@@ -22,6 +22,10 @@ const eventSchema = new mongoose.Schema({
     participants: {
         type: Number,
         default: 0
+    },
+    description: {
+        type: String,
+        default: "Description not avaliable"
     }
 }, { timestamps: true })
 

@@ -24,14 +24,21 @@ staticRouter.route('/reset-password/:resetToken').get((req, res) => {
     res.render("reset_password", { resetToken })
 })
 
-staticRouter.route('/homepage/:id').get(checkAuth, async (req, res) => {
-    const user = req.user
-    const events = await Event.find({})
+staticRouter.route('/homepage/:userId').get(checkAuth, async (req, res) => {
+    const user = req.user // through checkAuth
+    const events = await Event.find({}).sort({ createdAt: -1 })
     res.render("homepage", { user, events })
 })
 
-staticRouter.route('/homepage/:id/event').get(checkAuth, async (req, res) => {
-    res.render("event_card")
+staticRouter.route('/homepage/:userId/create-event').get(checkAuth, async (req, res) => {
+    const user = req.user
+    res.render("create_event", { user })
+})
+
+staticRouter.route('/homepage/:userId/event/:eventId').get(checkAuth, async (req, res) => {
+    const user = req.user
+    const event = await Event.findOne({ _id: req.params.eventId })
+    res.render("event_card", { user, event })
 })
 
 export default staticRouter
