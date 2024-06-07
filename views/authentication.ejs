@@ -1,37 +1,93 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <title>Slide Navbar</title>
-    <link rel="stylesheet" type="text/css" href="css/authentication.css">
-    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@500&display=swap" rel="stylesheet">
+    <title>Hash Techie Official</title>
+    <link rel="shortcut icon" href="#">
+    <link rel="stylesheet" href="/css/authentication.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
 </head>
 
 <body>
-    <div class="main">
-        <input type="checkbox" id="chk" aria-hidden="true">
-
-        <div class="signup">
-            <form action="/api/user/signup" method="post">
-                <label for="chk" aria-hidden="true">Sign up</label>
-                <input type="text" name="name" placeholder="User name" required="">
-                <input type="email" name="email" placeholder="Email" required="">
-                <input type="password" name="password" placeholder="Password" required="">
-                <input type="password" name="confirmPassword" placeholder="Confirm Password" required="">
-                <button>Sign up</button>
-            </form>
+    <!-- NAVBAR CREATION -->
+    <header class="header">
+        <nav class="navbar">
+            <a href="/">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+    <!-- LOGIN FORM CREATION -->
+    <div class="background"></div>
+    <div class="container">
+        <div class="item">
+            <h2 class="logo"><i class='bx bxl-xing'></i>Event Master</h2>
+            <div class="text-item">
+                <h2>Welcome! <br><span>
+                        <span style="font-size: 20px;">Book. Manage. Celebrate.</span>
+                    </span></h2>
+            </div>
         </div>
+        <div class="login-section">
+            <div class="form-box login">
+                <form action="/api/user/login" method="post">
+                    <h2>Sign In</h2>
+                    <div class="input-box">
+                        <span class="icon"><i class='bx bxs-envelope'></i></span>
+                        <input type="email" name="email" required>
+                        <label>Email</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><i class='bx bxs-lock-alt'></i></span>
+                        <input type="password" name="password" required>
+                        <label>Password</label>
+                    </div>
+                    <div class="remember-password">
+                        <a href="/forgot-password">Forget Password</a>
+                    </div>
+                    <button class="btn">Login In</button>
+                    <div class="create-account">
+                        <p>Create A New Account? <a href="#" class="register-link">Sign Up</a></p>
+                    </div>
+                </form>
+            </div>
+            <div class="form-box register">
+                <form action="/api/user/signup" method="post">
+                    <h2>Sign Up</h2>
+                    <div class="input-box">
+                        <span class="icon"><i class='bx bxs-user'></i></span>
+                        <input type="text" name="name" required>
+                        <label>Name</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><i class='bx bxs-envelope'></i></span>
+                        <input type="email" name="email" required>
+                        <label>Email</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><i class='bx bxs-lock-alt'></i></span>
+                        <input type="password" name="password" required>
+                        <label>Password</label>
+                    </div>
+                    <div class="input-box">
+                        <span class="icon"><i class='bx bxs-lock-alt'></i></span>
+                        <input type="password" name="confirmPassword" required>
+                        <label>Confirm Password</label>
+                    </div>
+                    <button class="btn">Sign up</button>
+                    <div class="create-account">
+                        <p>Already Have An Account? <a href="#" class="login-link">Sign In</a></p>
+                    </div>
+                </form>
 
-        <div class="login">
-            <form action="/api/user/login" method="post">
-                <label for="chk" aria-hidden="true">Login</label>
-                <input type="email" name="email" placeholder="Email" required="">
-                <input class="last-login-input" type="password" name="password" placeholder="Password" required="">
-                <p class="forgot-password">Forgot Password?</p>
-                <button class="login-button">Login</button>
-            </form>
+            </div>
+
         </div>
     </div>
+    <!-- SIGN UP FORM CREATION -->
+
+    <script src="/script/authentication.js"></script>
 </body>
 
 </html>

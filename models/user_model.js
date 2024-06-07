@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcrypt"
+import crypto from "crypto"
 
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, "Name is a required field"],
-        minlength: [3, "Name must be atleast three letters long"]
+        required: [true, "User name is a required field"],
+        minlength: [3, "User name must be atleast three letters long"]
     },
     email: {
         type: String,
@@ -39,7 +40,9 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: true,
         select: false
-    }
+    },
+    passwordResetToken: String,
+    passwordResetTokenExpires: Date
 
 }, { timestamps: true })
 
@@ -53,6 +56,13 @@ userSchema.pre('save', async function (next) {
 
 userSchema.methods.comparePassword = async (userPassword, enteredPassword) => {
     return await bcrypt.compare(enteredPassword, userPassword)
+}
+
+userSchema.methods.createResetToken = async function () {
+    const resetToken = crypto.randomBytes(32).toString('hex')
+    this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex')
+    this.passwordResetTokenExpires = Date.now() + 10 * 60 * 1000 // 10 minute
+    return resetToken
 }
 
 const User = mongoose.model('Users', userSchema)
