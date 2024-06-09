@@ -10,9 +10,16 @@ const createEvent = asyncErrorHandler(async (req, res) => {
     if (!event) {
         throw new CustomError("Failed to create event", 400)
     }
-    const user = await User.findByIdAndUpdate(userId, { $push: { events: event._id } }, { new: true })
+    const user = await User.findByIdAndUpdate(userId, { $push: { createdEvents: event._id } }, { new: true })
 
     res.redirect(`/homepage/${user._id}`)
 })
 
-export { createEvent }
+const deleteEvent = asyncErrorHandler(async (req, res) => {
+
+    await Event.findByIdAndDelete(req.body.eventId)
+    res.redirect(`/authentication`)
+
+})
+
+export { createEvent, deleteEvent }

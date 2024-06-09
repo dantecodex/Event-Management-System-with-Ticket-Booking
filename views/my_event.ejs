@@ -31,8 +31,7 @@
                         <a class="nav-link active" aria-current="page" href="/homepage/<%= user._id %>">Home</a>
                     </li>
                     <li class="nav-item ms-2">
-                        <a class="nav-link active" aria-current="page" href="/homepage/<%= user._id %>/my-event">My
-                            Events</a>
+                        <a class="nav-link active" aria-current="page" href="#">My Events</a>
                     </li>
                     <li class="nav-item ms-2">
                         <a class="nav-link active" aria-current="page" href="#">About</a>
@@ -56,12 +55,12 @@
         </div>
     </nav>
 
-    <!-- Event card -->
+    <!-- Created Event card -->
     <div class="mt-md-5 mt-4">
 
         <div class="container d-flex justify-content-between">
             <div>
-                <p class="h4" style="font-family: Cormorant Garamond">Upcoming Events</p>
+                <p class="h4" style="font-family: Cormorant Garamond">My Created events</p>
             </div>
             <div class="">
                 <button class="btn btn-dark shadow"
@@ -69,10 +68,10 @@
             </div>
         </div>
     </div>
-
     <div class=" container d-flex flex-wrap" id="all-events">
+
         <% if(events.length){ %>
-            <% for( let index=0; index < 4; index++ ) { %>
+            <% for( let index=0; index < events.length; index++ ) { %>
                 <div class="card my-3 text-dark bg-light m-auto" style="width: 18rem; cursor: pointer;"
                     onclick="window.location.href= '/homepage/<%= user._id %>/event/<%= events[index]._id %>'">
                     <div class="card-body">
@@ -96,41 +95,60 @@
                 <% } %>
 
                     <% } else{ %>
-                        <p class="h1 mt-5">There is Upcoming Events. You can create one 😉 </p>
+                        <p class="h1 mt-5">You do not have any active event</p>
                         <% } %>
+
+
     </div>
-    <% if(events.length){ %>
-        <div class="text-center mt-md-4 mt-3">
-            <button class="btn btn-dark shadow" onclick="window.location.href='/homepage/<%= user._id %>/browse'">Browse
-                Events</button>
+
+    <!-- Bought Event card -->
+    <div class="mt-md-5 mt-4">
+
+        <div class="container d-flex justify-content-between">
+            <div>
+                <p class="h4" style="font-family: Cormorant Garamond">Purchased Tickets</p>
+            </div>
         </div>
+    </div>
+    <div class=" container d-flex flex-wrap" id="all-events">
 
-        <% } %>
+        <% if(combinedTicketValues.length){ %>
+            <% for( let index=0; index < combinedTicketValues.length; index++ ) { %>
+                <div class="card my-3 text-dark bg-light m-auto" style="width: 18rem; cursor: pointer;"
+                    onclick="window.location.href= '/homepage/<%= user._id %>/event/<%= combinedTicketValues[index]._id %>'">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <%= combinedTicketValues[index].eventName %>
+                        </h5>
+                        <p class="card-text text-secondary m-0 mb-1">
+                            <%= combinedTicketValues[index].location %>
+                        </p>
+                        <p class="card-text text-secondary m-0 mb-1">
+                            <%= combinedTicketValues[index].date %>
+                        </p>
+                        <p class="card-text m-0 mb-1"><i class="bi bi-people-fill"></i>
+                            Tickets: <%= combinedTicketValues[index].quantity %>
+                        </p>
+                        <p class="card-text m-0 mb-1"><i class="bi bi-currency-dollar"></i>
+                            Amount Paid: <%= combinedTicketValues[index].totalPrice %>
+                        </p>
+                    </div>
+                </div>
+                <% } %>
+
+                    <% } else{ %>
+                        <p class="h1 mt-5">You do not have any Purchased Tickets</p>
+                        <% } %>
+
+
+    </div>
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-                integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-                crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

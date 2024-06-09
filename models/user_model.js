@@ -2,7 +2,6 @@ import mongoose from "mongoose";
 import validator from "validator";
 import bcrypt from "bcrypt"
 import crypto from "crypto"
-import { type } from "os";
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -42,7 +41,7 @@ const userSchema = new mongoose.Schema({
         default: true,
         select: false
     },
-    events: {
+    createdEvents: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: 'Events'
     },

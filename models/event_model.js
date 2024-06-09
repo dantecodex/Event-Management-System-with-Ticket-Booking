@@ -26,6 +26,10 @@ const eventSchema = new mongoose.Schema({
     description: {
         type: String,
         default: "Description not avaliable"
+    },
+    createdBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Users'
     }
 }, { timestamps: true })
 

@@ -7,6 +7,9 @@ authRouter.route('/signup').post(createUser)
 authRouter.route('/login').post(loginUser)
 authRouter.route('/forgot').post(forgotUser)
 authRouter.route('/reset').post(resetUser)
+authRouter.route('/logout').get((req, res) => {
+    res.clearCookie("token").redirect("/")
+})
 
 
 export default authRouter

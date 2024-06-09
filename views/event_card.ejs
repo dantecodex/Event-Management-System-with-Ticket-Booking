@@ -74,8 +74,14 @@
                     <%= event.price %>
                 </p>
             </div>
-            <p>Join us for a fun-filled summer BBQ in the heart of Central Park. Enjoy delicious grilled food,
-                refreshing drinks, and great company as we celebrate the warm weather.</p>
+            <p>
+                <% if (event.description) { %>
+                    <%= event.description %>
+                        <% } else { %>
+                            <p>No description avaliable</p>
+                            <% } %>
+
+            </p>
         </div>
 
 
@@ -85,15 +91,18 @@
 
             <div>
                 <p class="mb-2">Quantity</p>
-                <form>
-                    <select onchange="selectQuantity()" class="form-select w-25" aria-label="Default select example"
-                        id="quantity">
+                <form action="/api/payment" method="post">
+                    <select name="quantity" onchange="selectQuantity()" class="form-select w-25"
+                        aria-label="Default select example" id="quantity">
                         <option value="1" selected>1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
                         <option value="4">4</option>
                         <option value="5">5</option>
                     </select>
+                    <input type="hidden" name="price" value="<%= event.price %>" id="">
+                    <input type="hidden" name="eventID" value="<%= event._id %>" id="">
+                    <input type="hidden" name="userID" value="<%= user._id %>" id="">
                     <div class="d-flex justify-content-between mt-4">
                         <p class="fw-bold">Total</p>
                         <p class="fw-bold" id="total-price">$ <%= event.price %>
@@ -106,6 +115,14 @@
             </div>
         </div>
 
+        <% user.createdEvents.forEach(element=> { %>
+            <% if (element.id==event.id) { %>
+                <form action="/api/event/delete-event" method="post">
+                    <input type="hidden" value="<%= event._id %>" name="eventId">
+                    <button class="btn btn-danger mt-3">Delete Event</button>
+                </form>
+                <% } %>
+                    <% }) %>
 
 
 
@@ -120,10 +137,10 @@
 
 
 
-        <script src="/script/eventCard.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
+                        <script src="/script/eventCard.js"></script>
+                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+                            crossorigin="anonymous"></script>
 </body>
 
 </html>
