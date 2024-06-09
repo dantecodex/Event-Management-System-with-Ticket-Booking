@@ -72,7 +72,7 @@
 
     <div class=" container d-flex flex-wrap" id="all-events">
         <% if(events.length){ %>
-            <% for( let index=0; index < 4; index++ ) { %>
+            <% for( let index=0; index < (events.length> 4 ? 4:events.length); index++ ) { %>
                 <div class="card my-3 text-dark bg-light m-auto" style="width: 18rem; cursor: pointer;"
                     onclick="window.location.href= '/homepage/<%= user._id %>/event/<%= events[index]._id %>'">
                     <div class="card-body">
