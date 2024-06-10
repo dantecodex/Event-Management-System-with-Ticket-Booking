@@ -9,8 +9,22 @@ const devError = (error, res) => {
     })
 }
 
+const validationErrorHandler = (error) => {
+    return new CustomError(`Invalid Input data: ${error.message}`, 400)
+}
+
+
 const duplicateKeyHandler = (error) => {
     return new CustomError(`There are already an ${Object.keys(error.keyValue)} with ${Object.values(error.keyValue)} exist`, 400)
+}
+
+const expiredJwtHandler = (err) => {
+    return new CustomError('JWT token has expired, Please Login again', 401)
+}
+
+const invalidJwtHandler = (err) => {
+    return new CustomError('Invalid Token, Please Login again', 401)
+
 }
 
 const prodError = (error, res) => {
@@ -31,8 +45,14 @@ const globalErrorHandler = (error, req, res, next) => {
     }
 
     if (process.env.ENVI === 'prod') {
+        if (error.name === 'ValidationError')
+            error = validationErrorHandler(error)
         if (error.code === 11000)
             error = duplicateKeyHandler(error)
+        if (error.name === 'TokenExpiredError')
+            error = expiredJwtHandler(error)
+        if (error.name === 'JsonWebTokenError')
+            error = invalidJwtHandler(error)
         prodError(error, res)
     }
 }
