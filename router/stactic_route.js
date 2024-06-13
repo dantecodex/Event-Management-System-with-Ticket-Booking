@@ -80,7 +80,7 @@ staticRouter.route('/homepage/:userId/my-event').get(checkAuth, async (req, res)
     let combinedTicketValues = []
     groupedTickedByEventID.forEach(data => {
         const seperateCombinedValue = data.reduce((acc, obj) => {
-            // console.log(obj.event);
+            acc._id = obj._id
             acc.eventID = obj.event
             acc.eventName = obj.eventName
             acc.quantity += obj.quantity
@@ -94,8 +94,17 @@ staticRouter.route('/homepage/:userId/my-event').get(checkAuth, async (req, res)
         combinedTicketValues.push(seperateCombinedValue)
 
     })
-
     res.render("my_event", { user, events, combinedTicketValues })
+})
+
+staticRouter.route('/homepage/:userId/my-event/:ticketID').get(checkAuth, async (req, res) => {
+    const user = req.user
+    const ticket = await Ticket.findById(req.params.ticketID)
+    let event = await Event.findById(ticket.event)
+    event = event.toObject()
+    event.date = formatDate(event.date)
+
+    res.render("ticket_card", { user, event, ticket })
 })
 
 staticRouter.route('/homepage/:userId/create-event').get(checkAuth, async (req, res) => {

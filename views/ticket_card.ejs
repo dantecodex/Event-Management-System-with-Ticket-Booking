@@ -64,7 +64,7 @@
                     <%= event.name %>
                 </p>
                 <p><i class="bi bi-people"></i>
-                    <%= event.participants %>
+                    <%= event.participants %> participants
                 </p>
             </div>
             <div class="text-secondary">
@@ -91,44 +91,64 @@
         </div>
 
 
-        <div class="col-md-6 p-md-5 p-4" style="background-color: #f3f4f6;">
-            <p class="h5 fw-bold">Tickets</p>
-            <p class="text-secondary">Select the number of tickets you'd like to purchase.</p>
+        <div class="ms-md-auto col-md-4 p-md-5 p-5" style="background-color: #f3f4f6;">
+            <p class="h5 fw-bold">Your Ticket</p>
+            <p class="text-secondary">This is the ticket you purchased for the event.</p>
 
-            <div>
-                <p class="mb-2">Quantity</p>
-                <form action="/api/payment" method="post">
-                    <select name="quantity" onchange="selectQuantity()" class="form-select w-25"
-                        aria-label="Default select example" id="quantity">
-                        <option value="1" selected>1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                    <input type="hidden" name="price" value="<%= event.price %>" id="">
-                    <input type="hidden" name="eventID" value="<%= event._id %>" id="">
-                    <input type="hidden" name="userID" value="<%= user._id %>" id="">
-                    <div class="d-flex justify-content-between mt-4">
-                        <p class="fw-bold">Total</p>
-                        <p class="fw-bold" id="total-price">$ <%= event.price %>
-                        </p>
-                    </div>
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-dark">Buy Tickets</button>
-                    </div>
-                </form>
+            <div class="fw-bold">
+                <div class="d-flex justify-content-between">
+                    <p class="">Event</p>
+                    <p>
+                        <%= event.name %>
+                    </p>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <p class="">Date</p>
+                    <p>
+                        <%= event.date %>
+                    </p>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <p class="">Location</p>
+                    <p>
+                        <%= event.location %>
+                    </p>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <p class="">Quantity</p>
+                    <p>
+                        <%= ticket.quantity %>
+                    </p>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <p class="">Total Price</p>
+                    <p>
+                        $<%= ticket.totalPrice %>
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- Live chat -->
+
+        <div class="container my-5 row">
+            <p class="fs-3">Live chat for event Participants</p>
+            <p>Here you can see the chat history</p>
+            <div class="col-md-6 border border-2 p-5">
+                <div id="chatDisplay" class="overflow-auto" style="max-height: 400px;">
+                    <ul id="chatMessages"></ul>
+                </div>
+                <div>
+                    <form id="chatForm">
+                        <input type="text" id="chatInput" class="form-control" placeholder="Send your message">
+                        <button type="submit" class="btn btn-primary mt-2"><i class="bi bi-send"></i></button>
+                    </form>
+                </div>
             </div>
         </div>
 
-        <% user.createdEvents.forEach(element=> { %>
-            <% if (element.id==event.id) { %>
-                <form action="/api/event/delete-event" method="post">
-                    <input type="hidden" value="<%= event._id %>" name="eventId">
-                    <button class="btn btn-danger mt-3">Delete Event</button>
-                </form>
-                <% } %>
-                    <% }) %>
 
 
 
@@ -139,14 +159,14 @@
 
 
 
+        <input type="hidden" id="eventRoom" value="<%= event._id %>">
+        <input type="hidden" id="userName" value="<%= user.name %>">
 
-
-
-
-                        <script src="/script/eventCard.js"></script>
-                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-                            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-                            crossorigin="anonymous"></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/script/ticket_card.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
 </body>
 
 </html>

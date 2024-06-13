@@ -31,7 +31,8 @@
                         <a class="nav-link active" aria-current="page" href="/homepage/<%= user._id %>">Home</a>
                     </li>
                     <li class="nav-item ms-2">
-                        <a class="nav-link active" aria-current="page" href="#">My Events</a>
+                        <a class="nav-link active" aria-current="page" href="/homepage/<%= user._id %>/my-event">My
+                            Events</a>
                     </li>
                     <li class="nav-item ms-2">
                         <a class="nav-link active" aria-current="page" href="#">About</a>
@@ -115,7 +116,7 @@
         <% if(combinedTicketValues.length){ %>
             <% for( let index=0; index < combinedTicketValues.length; index++ ) { %>
                 <div class="card my-3 text-dark bg-light m-auto" style="width: 18rem; cursor: pointer;"
-                    onclick="window.location.href= '/homepage/<%= user._id %>/event/<%= combinedTicketValues[index].eventID %>'">
+                    onclick="window.location.href= '/homepage/<%= user._id %>/my-event/<%= combinedTicketValues[index]._id %>'">
                     <div class="card-body">
                         <h5 class="card-title">
                             <%= combinedTicketValues[index].eventName %>

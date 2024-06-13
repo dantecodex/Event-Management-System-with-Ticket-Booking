@@ -2,7 +2,7 @@
 
 ## Overview
 
-The Event Management System is a web application designed to simplify event creation, management, and participation. It provides functionalities for users to create events, purchase tickets, manage their events, and more.
+The Event Management System is a comprehensive web application designed to facilitate event creation, ticket booking, management, and real-time communication through live chat. It allows users to create events, purchase tickets, manage their events, and provides secure authentication and error handling mechanisms. Participants can engage in live chat during events, enhancing interaction and collaboration among attendees.
 
 ## Features
 
@@ -11,16 +11,15 @@ The Event Management System is a web application designed to simplify event crea
 - **User Authentication**: Sign up, log in, and log out functionality with JWT authentication.
 - **Password Reset**: Users can request a password reset if they forget their password.
 - **Email Confirmation**: Confirmation emails are sent to users upon successful ticket purchase.
+- **Live Chat Integration**: Real-time chat functionality for event attendees using Socket.IO.
 - **Error Handling**: Comprehensive error handling with custom error messages.
 - **Responsive Design**: Mobile-friendly interface for seamless user experience across devices.
-
-Sure, here's an expanded section on the functionality of your application:
 
 ## Working of the Application
 
 ### Event Creation
 
-1. **Creating an Event**: Users can navigate to the event creation page where they can fill out a form with details such as event name, location, date, and price.
+1. **Creating an Event**: Users can navigate to the event creation page where they fill out a form with details like event name, location, date, and price.
 2. **Submitting the Form**: After filling out the form, users can submit it to create the event.
 3. **Event Confirmation**: Upon successful creation, users receive a confirmation message and can view the newly created event on the homepage.
 
@@ -43,35 +42,34 @@ Sure, here's an expanded section on the functionality of your application:
 2. **Reset Link**: Upon request, users receive an email containing a link to reset their password.
 3. **Reset Password**: Clicking on the reset link directs users to a page where they can enter a new password and confirm it.
 
+### Live Chat Integration
+
+- **Real-time Communication**: Utilizes Socket.IO for real-time communication between event attendees.
+- **Chat History**: Users can view chat history related to specific events upon joining a chat room.
+
 ### Error Handling
 
-1. **Comprehensive Error Messages**: The application provides clear error messages for various scenarios, such as invalid credentials, duplicate events, and failed payments.
-2. **Global Error Handling**: Custom error handling middleware ensures that errors are properly caught and handled throughout the application.
+- **Comprehensive Error Messages**: The application provides clear error messages for various scenarios, such as invalid credentials, duplicate events, and failed payments.
+- **Global Error Handling**: Custom error handling middleware ensures that errors are properly caught and handled throughout the application.
 
 ### Responsive Design
 
-1. **Mobile Compatibility**: The application is designed to be responsive, ensuring optimal user experience across devices, including desktops, tablets, and smartphones.
-
-### Additional Functionality
-
-1. **Event Management**: Event creators can manage their events by deleting them if needed.
-2. **Ticket Quantity Update**: If a user purchases additional tickets for the same event, the quantity is updated accordingly in the database.
-3. **Email Confirmation**: Upon successful ticket purchase, users receive an email confirmation containing their ticket details.
-
+- **Mobile Compatibility**: The application is designed to be responsive, ensuring optimal user experience across devices, including desktops, tablets, and smartphones.
 
 ## Technologies Used
 
-- **Frontend**: HTML, CSS, EJS (Embedded JavaScript)
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB
-- **Authentication**: JWT (JSON Web Tokens)
-- **Email Service**: Nodemailer
+- **Node.js**: Server-side JavaScript runtime environment.
+- **Express.js**: Web application framework for Node.js.
+- **MongoDB**: NoSQL database used with Mongoose ODM.
+- **EJS**: Embedded JavaScript templating for server-rendered views.
+- **Socket.IO**: Real-time bidirectional event-based communication library.
+- **Nodemailer**: Node.js module for sending emails.
 
 ## Setup and Installation
 
 1. **Clone the repository**:
     ```sh
-    git clone https://github.com/dantecodex/Event-Management-System-with-Ticket-Booking.git
+    git clone https://github.com/your-username/event-management-system.git
     cd event-management-system
     ```
 
@@ -81,7 +79,7 @@ Sure, here's an expanded section on the functionality of your application:
     ```
 
 3. **Environment Variables**:
-    Create a `.env` file in the project root directory and add the necessary environment variables. Refer to the `envExample.txt` file for the required variables.
+    Create a `.env` file in the project root directory and add the necessary environment variables. Refer to the `.envExample.txt` file for the required variables.
 
 4. **Run the application**:
     ```sh
@@ -106,6 +104,7 @@ Sure, here's an expanded section on the functionality of your application:
 │   └── globalErrorHandler.js
 │
 ├── models/
+│   ├── chatHistory_model.js
 │   ├── event_model.js
 │   ├── ticket_model.js
 │   └── user_model.js
@@ -119,6 +118,7 @@ Sure, here's an expanded section on the functionality of your application:
 ├── utils/
 │   ├── asyncErrorHandler.js
 │   ├── customErrorHandler.js
+│   ├── liveChat.js
 │   └── sendEmail.js
 │
 ├── public/
@@ -137,11 +137,12 @@ Sure, here's an expanded section on the functionality of your application:
 │   ├── page404.ejs
 │   ├── payment_success.ejs
 │   ├── reset_password.ejs
-│   └── browse_event.ejs
+│   ├── browse_event.ejs
+│   └── ticket_card.ejs
 │
 ├── .envExample.txt
 ├── .gitignore
-├── .readme.md
+├── README.md
 ├── app.js
 └── server.js
 ```
@@ -154,4 +155,4 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 Feel free to connect with me on LinkedIn:
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue)](https://www.linkedin.com/in/anshulrajput237)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue)](https://www.linkedin.com/in/your-linkedin-profile)
