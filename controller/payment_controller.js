@@ -31,7 +31,7 @@ const paymentSucess = asyncErrorHandler(async (req, res) => {
             price: ticketData.price,
             quantity: ticketData.quantity,
             location: event.location,
-            date: event.date.toString().split('00:00')[0]
+            date: event.date
         })
     }
     event.participants += (ticketData.quantity * 1)

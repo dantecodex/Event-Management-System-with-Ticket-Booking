@@ -5,6 +5,20 @@ import Event from "../models/event_model.js"
 import User from "../models/user_model.js"
 import Ticket from "../models/ticket_model.js"
 
+
+function formatDate(date) {
+    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    return date.toLocaleDateString('en-US', options);
+}
+
+const getFormattedEvents = async () => {
+    const events = await Event.find({}).sort({ createdAt: -1 });
+    return events.map(event => ({
+        ...event.toObject(),
+        date: formatDate(event.date)
+    }));
+};
+
 const staticRouter = express.Router()
 
 staticRouter.route('/').get((req, res) => {
@@ -29,19 +43,28 @@ staticRouter.route('/reset-password/:resetToken').get((req, res) => {
 
 staticRouter.route('/homepage/:userId').get(checkAuth, async (req, res) => {
     const user = req.user // through checkAuth
-    const events = await Event.find({}).sort({ createdAt: -1 })
+    const events = await getFormattedEvents()
     res.render("homepage", { user, events })
 })
 
 staticRouter.route('/homepage/:userId/browse').get(checkAuth, async (req, res) => {
     const user = req.user // through checkAuth
-    const events = await Event.find({}).sort({ createdAt: -1 })
+    let events = await getFormattedEvents()
     res.render("browse_event", { user, events })
 })
 
 staticRouter.route('/homepage/:userId/my-event').get(checkAuth, async (req, res) => {
     const user = await User.findById(req.user._id).populate({ path: 'createdEvents' })
-    const events = user.createdEvents
+    // const events = user.createdEvents
+    let events = user.createdEvents.map(event => event);
+    events = events.map((obj) => {
+        return {
+            ...obj.toObject(),
+            date: formatDate(obj.date)
+        }
+    })
+
+    // console.log(test);
     const tickets = await Ticket.find({ user: req.user._id })
 
     let groupedObjectByEventID = tickets.reduce((acc, obj) => {
@@ -54,19 +77,23 @@ staticRouter.route('/homepage/:userId/my-event').get(checkAuth, async (req, res)
     }, {})
     const groupedTickedByEventID = Object.values(groupedObjectByEventID)
 
-    const combinedTicketValues = []
+    let combinedTicketValues = []
     groupedTickedByEventID.forEach(data => {
         const seperateCombinedValue = data.reduce((acc, obj) => {
+            // console.log(obj.event);
+            acc.eventID = obj.event
             acc.eventName = obj.eventName
             acc.quantity += obj.quantity
             acc.totalPrice += obj.totalPrice
             acc.location = obj.location
-            acc.date = obj.date.trim()
+            // acc.date = obj.date.trim()
+            acc.date = formatDate(obj.date)
+
             return acc
         }, { quantity: 0, totalPrice: 0 })
         combinedTicketValues.push(seperateCombinedValue)
+
     })
-    console.log(combinedTicketValues);
 
     res.render("my_event", { user, events, combinedTicketValues })
 })

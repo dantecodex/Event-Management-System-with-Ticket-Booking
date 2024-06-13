@@ -33,7 +33,7 @@ const ticketSchema = new mongoose.Schema({
         default: "Unknown"
     },
     date: {
-        type: String
+        type: Date
     }
 }, { timestamps: true })
 
