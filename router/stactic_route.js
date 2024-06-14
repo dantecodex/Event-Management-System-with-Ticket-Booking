@@ -12,7 +12,7 @@ function formatDate(date) {
 }
 
 const getFormattedEvents = async () => {
-    const events = await Event.find({ date: { $gte: new Date() } }).sort({ createdAt: -1 })
+    const events = await Event.find({ date: { $gte: new Date() } }).sort({ date: 1 })
     return events.map(event => ({
         ...event.toObject(),
         date: formatDate(event.date)

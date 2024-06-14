@@ -29,10 +29,10 @@ const invalidJwtHandler = (err) => {
 
 const prodError = (error, res) => {
     if (error.isOperational) {
-        res.status(error.statusCode).send(error.message)
+        res.status(error.statusCode).render("error", { message: error.message })
     }
     else {
-        res.status(500).send("Something went wrong")
+        res.status(500).render("error", { message: "Something went wrong" })
     }
 }
 
